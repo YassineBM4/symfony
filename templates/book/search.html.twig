@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<body>
+{{ form_start(l) }}
+{{ form_label(l.search,"id") }}
+{{ form_widget(l.search) }}
+{{ form_widget(l.recherche) }}
+{{ form_end(l) }}
+
+<br>
+
+
+<table border="2">
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Published</th>
+        <th>Published Date</th>
+        <th>Author</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>
+
+    {% for i in x %}
+        <tr>
+            <td>{{ i.title }}</td>
+            <td>{{ i.category }}</td>
+            <td>
+                {% if  i.published  %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+            <td>{{ i.getPublicationDate | date("m/d/Y") }}</td>
+            <td>{{ i.getAuthor }}</td>
+            <td><a href="{{ path('editBook' , {'id' : i.id}) }}">Delete</a></td>
+            <td><a href="{{ path('deleteBook' , {'id' : i.id}) }}">Update</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<br>
+<br>
+</body>
+</html>

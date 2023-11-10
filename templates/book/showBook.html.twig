@@ -1,0 +1,62 @@
+<html>
+    <body>
+
+       {{form_start(f)}}
+       {{form_label(f.id)}}
+       {{form_widget(f.id)}}
+       {{form_end(f)}} 
+        <table border="4">
+            <tr>
+                <td>REF</td>
+                <td>title</td>  
+                <td>Category</td>
+                <td>Publication Date</td>
+                <td>Published</td>
+                <td>Author ID</td>
+                <td>Author name</td>
+                <td>Actions</td>
+            </tr>
+            {%set total=0 %}
+            {%set total1=0 %}
+            {%for a in book%}
+            <tr>
+                <td>{{a.id}}</td>
+                <td>{{a.title}}</td>
+                <td>{{a.category  ? 'true' : 'false'}}</td>
+                <td>{{a.getPublicationDate|date('Y-m-d')}}</td>
+                <td>{{a.published}}</td>
+                <td>{{a.getAuthor}}</td>
+                <td>{{a.getAuthor.username}}</td>
+                <td><a href="{{path('editBook',{'id':a.id})}}">Edit</a>
+                <a href="{{path('deleteBook',{'id':a.id})}}">Delete</a></td>
+            </tr>
+
+                {% if a.category %}
+                    {% set total = total + 1 %} 
+                {% endif %}
+
+                {% if not a.category %}
+                    {% set total1 = total1 + 1 %} 
+                {% endif %}
+
+            {%endfor%}
+        </table>
+        <a href="{{path('addBook')}}">Add a book</a>
+        <br>
+        {% if total > 0 %}
+            Number of published books: {{ total }} <br>
+        {% else %}
+            No published books found.
+        {% endif %}
+
+        {% if total1 > 0 %}
+            Number of unpublished books: {{ total1 }}
+        {% else %}
+            No unpublished books found.
+        {% endif %}
+        <p>number of books with Science fiction category :  {{nb_sci_books}}</p>
+
+        <a href="{{path('showDate')}}">liste des livres publiés entre deux dates «2018-01-01» et «2029-12-31»</a>
+
+    </body>
+</html>

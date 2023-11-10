@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <a href="{{path('showDB')}}">Home</a>
+        <table border="4">
+            <tr>
+                <td>ID</td>
+                <td>Username</td>
+                <td>E-mail</td>
+                <td>Number of books</td>
+                <td>Actions</td>
+            </tr>
+            {%for a in auth%}
+            <tr>
+                <td>{{a.id}}</td>
+                <td>{{a.username}}</td>
+                <td>{{a.email}}</td>
+                <td>{{a.getNbBooks}}</td>
+                <td><a href="{{path('editAuthor',{'id':a.id})}}">Edit</a>
+                <a href="{{path('deleteAuthor',{'id':a.id})}}">Delete</a></td>
+            </tr>
+            {%endfor%}
+        </table>
+        <a href="{{path('addAuthor')}}">Add here!</a>
+    </body>
+</html>
